@@ -9,22 +9,26 @@ body{
   }
 
   content-table{
-    border: 2px solid;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
     min-width: 400px;
   }
   
-  content-table thead tr{
+  content-table td, th{
     background-color: #A7C942;
     color: black;
+    border: 2px solid #cccccc;
     text-align: center;
     font-weight: bold;
-
+    padding: 10px;
   }
 
-  td {
-    border: 1px solid black;
-    padding: 8px;
+  th {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table{
+    bo
   }

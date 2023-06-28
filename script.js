@@ -30,39 +30,203 @@ General Accounting,0.01174743025,0.0053222945,0.01041064199,0.00493898896,0.0050
 Regulation and Law Compliance,0.04111600587,0.01774098167,0.01792943898,0.004648460198,0.0008003201281,0.02824753763,0.004520166898,0.00643776824,0.003062426384,0.00389385636,0.389385636
 Oil Wells,0.004405286344,0.006505026611,0.008097165992,0.006391632772,0.004601840736,0.001486712507,0.002433936022,0.002145922747,0.005418138987,0.003749639458,0.3749639458`;
 
-//split string with next line and get new array of lines
-const arrayOfLines = clusterDataset.split("\n");
-console.log(arrayOfLines);
+// //split string with next line and get new array of lines
+// const arrayOfLines = clusterDataset.split("\n");
+// console.log(arrayOfLines);
 
-//devlaring empty array to store array of values
-let arrayOfValues = [];
+// //devlaring empty array to store array of values
+// let arrayOfValues = [];
 
-//creating two dimensional array and inserting separated values
-for (let index in arrayOfLines) {
-  arrayOfValues[index] = [];
-  arrayOfValues[index] = arrayOfLines[index].split(",");
-}
+// //creating two dimensional array and inserting separated values
+// for (let index in arrayOfLines) {
+//   arrayOfValues[index] = [];
+//   arrayOfValues[index] = arrayOfLines[index].split(",");
+// }
 
-//getting table element by id
-const tableContainer = document.getElementById("table-container");
+// //getting table element by id
+// const tableContainer = document.getElementById("table-container");
 
-// Create the table element
-const table = document.createElement("table");
+// // Create the table element
+// const table = document.createElement("table");
 
-for (
-  let OuterArrayIndex = 0;
-  OuterArrayIndex < arrayOfValues.length;
-  OuterArrayIndex++
-) {
-  const row = document.createElement("tr");
-  // Create the table rows and cells
-  for (let i = 0; i < arrayOfValues[OuterArrayIndex].length; i++) {
-    const cell = document.createElement("td");
-    cell.textContent = arrayOfValues[OuterArrayIndex][i];
-    row.appendChild(cell);
+// const tableHead = document.createElement("thead");
+
+// for (let i = 0; i < arrayOfValues[0].length; i++) {
+//   const headCell = document.createElement("th");
+//   headCell.textContent = arrayOfValues[0][i];
+//   tableHead.appendChild(headCell);
+// }
+// table.appendChild(tableHead);
+
+// for (
+//   let OuterArrayIndex = 1;
+//   OuterArrayIndex < arrayOfValues.length;
+//   OuterArrayIndex++
+// ) {
+//   const row = document.createElement("tr");
+//   // Create the table rows and cells
+//   for (let i = 0; i < arrayOfValues[OuterArrayIndex].length; i++) {
+//     const cell = document.createElement("td");
+//     cell.textContent = arrayOfValues[OuterArrayIndex][i];
+//     row.appendChild(cell);
+//   }
+
+//   table.appendChild(row);
+// }
+
+// const table2 = table;
+// // Append the table to the container
+// tableContainer.appendChild(table2);
+
+//generating objects from array of string
+let arrayObj = [];
+let lines = clusterDataset.split("\n");
+
+let header = lines[0].split(",");
+
+for (let i = 1; i < lines.length; i++) {
+  let rowData = lines[i].split(",");
+  arrayObj[i - 1] = {};
+
+  for (let j = 0; j < rowData.length; j++) {
+    arrayObj[i - 1][header[j]] = rowData[j];
   }
-
-  table.appendChild(row);
 }
+
+let data = arrayObj;
+
+console.log(header);
+
+var table = $("<table>");
+
+// Create the table header
+var thead = $("<thead>").appendTo(table);
+$("<th>").text("SkillCluster").appendTo(thead);
+$("<th>").text("2010").appendTo(thead);
+$("<th>").text("2011").appendTo(thead);
+$("<th>").text("2012").appendTo(thead);
+$("<th>").text("2013").appendTo(thead);
+$("<th>").text("2014").appendTo(thead);
+$("<th>").text("2015").appendTo(thead);
+$("<th>").text("2016").appendTo(thead);
+$("<th>").text("2017").appendTo(thead);
+$("<th>").text("2018").appendTo(thead);
+$("<th>").text("2019").appendTo(thead);
+$("<th>").text("").appendTo(thead);
+
+// Create the table body
+var tbody = $("<tbody>").appendTo(table);
+$.each(data, function (index, item) {
+  var row = $("<tr>").appendTo(tbody);
+  $("<td .sortable-column>").text(item["SkillCluster"]).appendTo(row);
+  $("<td>").text(item["2010"]).appendTo(row);
+  $("<td>").text(item["2011"]).appendTo(row);
+  $("<td>").text(item["2012"]).appendTo(row);
+  $("<td>").text(item["2013"]).appendTo(row);
+  $("<td>").text(item["2014"]).appendTo(row);
+  $("<td>").text(item["2015"]).appendTo(row);
+  $("<td>").text(item["2016"]).appendTo(row);
+  $("<td>").text(item["2017"]).appendTo(row);
+  $("<td>").text(item["2018"]).appendTo(row);
+  $("<td>").text(item["2019"]).appendTo(row);
+  $("<td>").text(item[""]).appendTo(row);
+});
+
 // Append the table to the container
-tableContainer.appendChild(table);
+$("#table-container").append(table);
+
+// const contentTable = document.getElementById("result");
+
+// drawTable(arrayObj);
+
+// function drawTable(arrayObj) {
+//   const table = document.createElement("table");
+//   const thead = document.createElement("thead");
+
+//   const thForHeader = document.createElement("th");
+
+//   //appending table head
+//   for (let i = 0; i < header.length; i++) {
+//     thForHeader.innerText = header[i];
+//     thead.appendChild(thForHeader);
+//   }
+//   table.appendChild(thead);
+
+//   for (let i = 0; i < arrayObj.length; i++) {
+//     const tr = document.createElement("tr");
+//     for (let j = 0; j < header.length; j++) {
+//       const td = document.createElement("td");
+//       td.innerText = arrayObj[i][header[j]];
+//       console.log(arrayObj[i][header[j]]);
+//       console.log(header[j]);
+//       tr.appendChild(td);
+//     }
+//     table.appendChild(tr);
+//   }
+// }
+
+// const newTable = document.createElement("table");
+
+// let thValues = ``;
+// for (value of header) {
+//   thValues += `<th>${value}</th>`;
+// }
+// let tableHeadString = `<thead>${thValues}</thead>`;
+
+// newTable.innerHTML = tableHeadString;
+
+// for (outerIndex of arrayObj) {
+//   const rowData = document.createElement("tr");
+//   for (innerIndex in outerIndex) {
+//     const cellData = document.createElement("td");
+//     cellData.textContent = outerIndex[innerIndex];
+//     rowData.appendChild(cellData);
+//   }
+//   newTable.appendChild(rowData);
+// }
+
+// contentTable.appendChild(newTable);
+
+// let sortDirection = false;
+
+// //function to sort columns
+// function sortColumn(columnName) {
+//   const dataType = typeof arrayObj[1][columnName];
+//   sortDirection = !sortDirection;
+
+//   switch (dataType) {
+//     case "String":
+//       sortStringColumn(sortDirection, columnName);
+//       break;
+
+//     case "Number":
+//       sortNumberColumn(sortDirection, columnName);
+//       break;
+
+//     default:
+//       console.log("invalid data type: " + dataType);
+//   }
+// }
+
+// //function to sort number column values
+// function sortNumberColumn(sort, columnName) {
+//   arrayObj = arrayObj.sort((value1, value2) => {
+//     return sort
+//       ? value1[columnName] - value2[columnName]
+//       : value2[columnName] - value1[columnName];
+//   });
+// }
+
+// //function to sort string column values
+// function sortStringColumn(sort, columnName) {
+//   arrayObj = arrayObj.sort((value1, value2) => {
+//     if (value1[columnName].toLowerCase() < value2[columnName].toLowerCase()) {
+//       return -1;
+//     } else if (
+//       value1[columnName].toLowerCase() > value2[columnName].toLowerCase()
+//     ) {
+//       return 1;
+//     }
+//     return 0;
+//   });
+// }
